@@ -86,7 +86,6 @@ public class ProyectoParalelaContingencia extends JFrame {
         getContentPane().add(btnForkJoin);
         getContentPane().add(btnExecutorService);
         getContentPane().add(btnSubir);
-        //getContentPane().add(btnDescargar);
         getContentPane().add(btnLimpiar);
         getContentPane().add(timeSecuencial);
         getContentPane().add(timeForkJoin);
@@ -166,16 +165,20 @@ public class ProyectoParalelaContingencia extends JFrame {
         btnForkJoin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                processData.setText("");
+                if (clientes == null) {
+                    JOptionPane.showMessageDialog(null, "Primero sube información para ser procesada.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    processData.setText("");
 
-                long tiempo = medirTiempoEjecucion(() -> {
-                    forkJoin.generarCuentaClabe(clientes);
-                });
+                    long tiempo = medirTiempoEjecucion(() -> {
+                        forkJoin.generarCuentaClabe(clientes);
+                    });
 
-                imprimirClientes(clientes, processData);
+                    imprimirClientes(clientes, processData);
 
-                String tiempoFormateado = formatoTiempo(tiempo);
-                timeForkJoin.setText("Tiempo: " + tiempoFormateado + " ms:ns");
+                    String tiempoFormateado = formatoTiempo(tiempo);
+                    timeForkJoin.setText("Tiempo: " + tiempoFormateado + " ms:ns");
+                }
             }
         });
         ////////////////////////////////////////////////////////////////////////
@@ -183,21 +186,26 @@ public class ProyectoParalelaContingencia extends JFrame {
         btnExecutorService.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                processData.setText("");
+                if (clientes == null) {
+                    JOptionPane.showMessageDialog(null, "Primero sube información para ser procesada.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    processData.setText("");
 
-                long tiempo = medirTiempoEjecucion(() -> {
-                    metodoEjecutor.generarCuentaClabeParalelo(clientes);
-                });
+                    long tiempo = medirTiempoEjecucion(() -> {
+                        metodoEjecutor.generarCuentaClabeParalelo(clientes);
+                    });
 
-                imprimirClientes(clientes, processData);
+                    imprimirClientes(clientes, processData);
 
-                String tiempoFormateado = formatoTiempo(tiempo);
-                timeExecutorService.setText("Tiempo: " + tiempoFormateado + " ms:ns");
+                    String tiempoFormateado = formatoTiempo(tiempo);
+                    timeExecutorService.setText("Tiempo: " + tiempoFormateado + " ms:ns");
+                }
             }
         });
         ////////////////////////////////////////////////////////////////////////
         setVisible(true);
     }
+
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////

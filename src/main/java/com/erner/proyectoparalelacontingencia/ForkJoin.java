@@ -32,8 +32,8 @@ public class ForkJoin {
                     String codigo = cliente.getCodigo();
                     String nombre = cliente.getNombre();
                     int cdgEstadoNacimiento = cliente.getCdgEstadoNacimiento();
-                    int edad = cliente.getEdad();
-
+                    int edad = cliente.getEdad();                  
+                    
                     // Crear la cuenta CLABE
                     String cuentaClabe = "8527";
                     String codigoLastTwoDigits = codigo.substring(codigo.length() - 2);
