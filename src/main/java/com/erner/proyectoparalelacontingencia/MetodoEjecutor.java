@@ -47,7 +47,6 @@ public class MetodoEjecutor {
             for (Cliente cliente : clientes) {
                 // Extraer los datos necesarios
                 String codigo = cliente.getCodigo();
-                String nombre = cliente.getNombre();
                 int cdgEstadoNacimiento = cliente.getCdgEstadoNacimiento();
                 int edad = cliente.getEdad();
 

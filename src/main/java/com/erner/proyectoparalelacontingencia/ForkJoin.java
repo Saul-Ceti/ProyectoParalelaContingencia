@@ -12,7 +12,7 @@ public class ForkJoin {
     }
 
     private class GenerarCuentaClabeTask extends RecursiveTask<Void> {
-        private static final int THRESHOLD = 10; // Umbral para dividir en tareas más pequeñas
+        private static final int THRESHOLD = 5;
         private Cliente[] clientes;
         private int start;
         private int end;

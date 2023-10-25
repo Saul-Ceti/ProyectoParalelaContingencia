@@ -2,9 +2,7 @@ package com.erner.proyectoparalelacontingencia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -88,7 +86,7 @@ public class ProyectoParalelaContingencia extends JFrame {
         getContentPane().add(btnForkJoin);
         getContentPane().add(btnExecutorService);
         getContentPane().add(btnSubir);
-        getContentPane().add(btnDescargar);
+        //getContentPane().add(btnDescargar);
         getContentPane().add(btnLimpiar);
         getContentPane().add(timeSecuencial);
         getContentPane().add(timeForkJoin);
@@ -108,6 +106,8 @@ public class ProyectoParalelaContingencia extends JFrame {
                 timeSecuencial.setText("0.0ms");
                 timeForkJoin.setText("0.0ms");
                 timeExecutorService.setText("0.0ms");
+
+                clientes = null;
             }
         });
         ////////////////////////////////////////////////////////////////////////
@@ -115,6 +115,8 @@ public class ProyectoParalelaContingencia extends JFrame {
         btnSubir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                processData.setText("");
+
                 JFileChooser fileChooser = new JFileChooser();
                 int result = fileChooser.showOpenDialog(null);
 
@@ -130,79 +132,80 @@ public class ProyectoParalelaContingencia extends JFrame {
                     clientes = lector.leerClientes();
                     cantidadClientes.setText(Integer.toString(clientes.length));
 
-                    imprimirDeportistas(clientes, originalData);
+                    imprimirClientes(clientes, originalData);
                 } else {
                     // El usuario canceló la selección del archivo
                     JOptionPane.showMessageDialog(null, "Selección de archivo cancelada.", "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
+
             }
         });
-
         ////////////////////////////////////////////////////////////////////////
-        //Descargar archivo
-        btnDescargar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        
+        // Proceso secuencial
         btnSecuencial.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                processData.setText("");
-                
-                long tiempo = medirTiempoEjecucion(() -> {
-                    secuencial.generarCuentaClabe(clientes);
-                });
+                if (clientes == null) {
+                    JOptionPane.showMessageDialog(null, "Primero sube información para ser procesada.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    processData.setText("");
 
-                imprimirDeportistas(clientes, processData);
+                    long tiempo = medirTiempoEjecucion(() -> {
+                        secuencial.generarCuentaClabe(clientes);
+                    });
 
-                String tiempoFormateado = formatoTiempo(tiempo);
-                timeSecuencial.setText("Tiempo: " + tiempoFormateado + " ms:ns");
+                    imprimirClientes(clientes, processData);
+
+                    String tiempoFormateado = formatoTiempo(tiempo);
+                    timeSecuencial.setText("Tiempo: " + tiempoFormateado + " ms:ns");
+                }
             }
         });
-
+        ////////////////////////////////////////////////////////////////////////
+        // ForkJoin
         btnForkJoin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 processData.setText("");
-                
+
                 long tiempo = medirTiempoEjecucion(() -> {
                     forkJoin.generarCuentaClabe(clientes);
                 });
 
-                imprimirDeportistas(clientes, processData);
+                imprimirClientes(clientes, processData);
 
                 String tiempoFormateado = formatoTiempo(tiempo);
                 timeForkJoin.setText("Tiempo: " + tiempoFormateado + " ms:ns");
             }
         });
-
+        ////////////////////////////////////////////////////////////////////////
+        // ExecutorService
         btnExecutorService.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 processData.setText("");
-                
+
                 long tiempo = medirTiempoEjecucion(() -> {
                     metodoEjecutor.generarCuentaClabeParalelo(clientes);
                 });
 
-                imprimirDeportistas(clientes, processData);
+                imprimirClientes(clientes, processData);
 
                 String tiempoFormateado = formatoTiempo(tiempo);
                 timeExecutorService.setText("Tiempo: " + tiempoFormateado + " ms:ns");
             }
         });
-
+        ////////////////////////////////////////////////////////////////////////
         setVisible(true);
     }
-
+    ////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
     public static void main(String[] args) {
         ProyectoParalelaContingencia proyectoApp = new ProyectoParalelaContingencia();
     }
 
-    public void imprimirDeportistas(Cliente[] clientes, JTextArea area) {
+    public void imprimirClientes(Cliente[] clientes, JTextArea area) {
         // Iterar a través del arreglo de deportistas
         for (Cliente cliente : clientes) {
             if (cliente.getCuentaClabe() != null) {
