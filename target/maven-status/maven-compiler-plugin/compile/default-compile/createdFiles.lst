@@ -1,9 +1,13 @@
-com\erner\proyectoparalelacontingencia\Cliente.class
 com\erner\proyectoparalelacontingencia\ProyectoParalelaContingencia$5.class
 com\erner\proyectoparalelacontingencia\LeerArchivo.class
+com\erner\proyectoparalelacontingencia\ForkJoin.class
+com\erner\proyectoparalelacontingencia\MetodoEjecutor.class
 com\erner\proyectoparalelacontingencia\ProyectoParalelaContingencia$4.class
-com\erner\proyectoparalelacontingencia\ProyectoParalelaContingencia$2.class
-com\erner\proyectoparalelacontingencia\ProyectoParalelaContingencia$6.class
-com\erner\proyectoparalelacontingencia\ProyectoParalelaContingencia$1.class
+com\erner\proyectoparalelacontingencia\Secuencial.class
 com\erner\proyectoparalelacontingencia\ProyectoParalelaContingencia$3.class
+com\erner\proyectoparalelacontingencia\Cliente.class
+com\erner\proyectoparalelacontingencia\ForkJoin$GenerarCuentaClabeTask.class
+com\erner\proyectoparalelacontingencia\MetodoEjecutor$GenerarCuentaClabeTask.class
+com\erner\proyectoparalelacontingencia\ProyectoParalelaContingencia$2.class
+com\erner\proyectoparalelacontingencia\ProyectoParalelaContingencia$1.class
 com\erner\proyectoparalelacontingencia\ProyectoParalelaContingencia.class

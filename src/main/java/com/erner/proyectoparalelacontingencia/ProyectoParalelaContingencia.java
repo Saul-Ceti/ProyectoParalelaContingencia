@@ -115,6 +115,9 @@ public class ProyectoParalelaContingencia extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 processData.setText("");
+                timeSecuencial.setText("0.0ms");
+                timeForkJoin.setText("0.0ms");
+                timeExecutorService.setText("0.0ms");
 
                 JFileChooser fileChooser = new JFileChooser();
                 int result = fileChooser.showOpenDialog(null);
@@ -192,13 +195,12 @@ public class ProyectoParalelaContingencia extends JFrame {
                     processData.setText("");
 
                     long tiempo = medirTiempoEjecucion(() -> {
-                        metodoEjecutor.generarCuentaClabeParalelo(clientes);
+                        metodoEjecutor.generarCuentaClabeParalelo(clientes, timeExecutorService);
                     });
 
                     imprimirClientes(clientes, processData);
 
-                    String tiempoFormateado = formatoTiempo(tiempo);
-                    timeExecutorService.setText("Tiempo: " + tiempoFormateado + " ms:ns");
+                    formatoTiempo(tiempo);
                 }
             }
         });
